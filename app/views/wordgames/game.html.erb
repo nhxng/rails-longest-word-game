@@ -1,0 +1,13 @@
+<h1>Wordgames#game</h1>
+<h1>******** Welcome to the longest word-game!********</h1>
+<h2>Here is your grid:</h2>
+<h2> <%= @grid %> </h2>
+
+<p> Start time: <%= @start_time %></p>
+<form action="/score">
+  <label for="attempt">What's your best shot?</label>
+  <input type="text" name="query">
+  <input type="hidden" name="time" value="<%= @start_time %>">
+  <input type="hidden" name="grid" value="<%= @grid %>">
+  <input type="submit" value="Submit">
+</form>
