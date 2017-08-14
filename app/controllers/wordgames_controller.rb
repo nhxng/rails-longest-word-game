@@ -3,7 +3,7 @@ require 'open-uri'
 
 class WordgamesController < ApplicationController
   def game
-    @grid = generate_grid(9).join(" ")
+    @grid = generate_grid(15).join(" ")
     @start_time = Time.now
   end
 
@@ -13,6 +13,18 @@ class WordgamesController < ApplicationController
     @start_time = Time.parse(params[:time])
     @end_time = Time.now
     @result = run_game(@user_guess, @grid, @start_time, @end_time)
+
+    if session[:score]
+      session[:score] << @result[:score]
+    else
+      session[:score] = []
+      session[:score] << @result[:score]
+    end
+  end
+
+  def startover
+    session[:score] = []
+    redirect_to '/game'
   end
 
   def generate_grid(grid_size)
@@ -32,8 +44,7 @@ class WordgamesController < ApplicationController
     score_and_message = score_and_message(attempt, grid, result[:time])
     result[:score] = score_and_message.first
     result[:message] = score_and_message.last
-
-    result
+    return result
   end
 
   def score_and_message(attempt, grid, time)

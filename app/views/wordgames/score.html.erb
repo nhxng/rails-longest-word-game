@@ -1,11 +1,14 @@
-<h1>Wordgames#score</h1>
-<p> End time: <%= @end_time %></p>
-
 <h1>******** Now your result ********</h1>
 <h2> Your word: <%= @user_guess %></h2>
 <h2> Time Taken to answer: <%= @result[:time] %></h2>
-<h2> Translation: <%= @result[:translation] %></h2>
 <h2> Your score: <%= @result[:score] %></h2>
 <h2> Message:  <%= @result[:message] %></h2>
-<h1>*****************************************************</h1>
+<h1>*******************************</h1>
+<h2> Your total score: <%= session[:score].reduce(:+) %></h2>
+<p> Your past scores: <%= session[:score] %></p>
+<p> Your average score: <%= session[:score].reduce(:+)/session[:score].length %></p>
+
+<p> <%= link_to "play again", game_path, class: "btn btn-primary btn-lg" %> <%= link_to "start new", startover_path %></p>
+
+<h1>*******************************</h1>
 
